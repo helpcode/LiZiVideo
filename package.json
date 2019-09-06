@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node-dev ./bin/www"
+    "dev": "node-dev ./bin/www",
+    "build": "pm2 start ./bin/www --name lsp --watch -i max",
+    "stop": "pm2 stop lsp"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",

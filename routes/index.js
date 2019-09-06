@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var config = require("../config");
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -32,7 +31,7 @@ router.get('/getTypeList', function(req, res, next) {
   var startPage = req.query.startPage;
   var data = []
 
-  requestData(config.baseUrl(type,startPage), $ => {
+  requestData(baseUrl(type,startPage), $ => {
     $(".categoryem .vervideo-bd").each(function()  {
       data.push({
         id: (($(this).find(".vervideo-lilink").attr("href")).split("_"))[1],
@@ -57,6 +56,10 @@ function requestData(url, callback) {
   request(url, function (error, response, body) {
     callback(cheerio.load(body))
   })
+}
+
+function baseUrl (categoryId,startPage) {
+  return `https://www.pearvideo.com/category_loading.jsp?reqType=5&categoryId=${categoryId}&start=${startPage}`
 }
 
 
